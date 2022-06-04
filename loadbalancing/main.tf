@@ -13,8 +13,8 @@ resource "aws_lb_target_group" "smt_tg" {
   protocol = var.tg_protocol
   vpc_id   = var.vpc_id
   lifecycle {
-      ignore_changes = [name]
-      create_before_destroy = true
+    ignore_changes        = [name]
+    create_before_destroy = true
   }
   health_check {
     healthy_threshold   = var.lb_healthy_threshold
@@ -26,8 +26,8 @@ resource "aws_lb_target_group" "smt_tg" {
 
 resource "aws_lb_listener" "smt_lb_listener" {
   load_balancer_arn = aws_lb.smt_lb.arn
-  port              = var.listener_port     
-  protocol          = var.listener_protocol 
+  port              = var.listener_port
+  protocol          = var.listener_protocol
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.smt_tg.arn

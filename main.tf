@@ -17,7 +17,7 @@ module "database" {
   source                 = "./database"
   db_storage             = 20
   db_instance_class      = "db.t2.micro"
-  dbname                 = var.dbname
+  db_name                = var.db_name
   dbuser                 = var.dbuser
   dbpassword             = var.dbpassword
   vpc_security_group_ids = module.networking.db_security_group
@@ -43,18 +43,18 @@ module "loadbalancing" {
 }
 
 module "compute" {
-  source = "./compute"
-  instance_count = 1
-  instance_type = "t2.micro"
-  public_sg = module.networking.public_sg
-  public_subnets = module.networking.public_subnets
-  vol_size = 10
+  source          = "./compute"
+  instance_count  = 1
+  instance_type   = "t2.micro"
+  public_sg       = module.networking.public_sg
+  public_subnets  = module.networking.public_subnets
+  vol_size        = 10
   public_key_path = "/home/ubuntu/.ssh/keysmt.pub"
-  key_name = "smtkey"
-  user_data_path = "${path.root}/userdata.tpl"
-  dbname = var.dbname
-  dbuser = var.dbuser
-  dbpassword = var.dbpassword
-  db_endpoint = module.database.db_endpoint
+  key_name        = "smtkey"
+  user_data_path  = "${path.root}/userdata.tpl"
+  db_name         = var.db_name
+  dbuser          = var.dbuser
+  dbpassword      = var.dbpassword
+  db_endpoint     = module.database.db_endpoint
 }
 

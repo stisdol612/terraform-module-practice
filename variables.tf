@@ -10,7 +10,7 @@ variable "access_ip" {
 
 # --- database variables ---
 
-variable "dbname" {
+variable "db_name" {
   type = string
 }
 
